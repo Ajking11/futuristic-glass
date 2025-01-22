@@ -1,7 +1,13 @@
--- Refactored Bigger Reactor Monitor with PID Control, Energy Overflow Prevention, and Backup Activation
+-- Refactored Extreme Reactor Monitor with PID Control, Energy Overflow Prevention, and Backup Activation
 
 -- Detect peripherals
-local reactors = peripheral.findAll("BiggerReactors_Reactor")
+local reactors = {}
+for _, name in ipairs(peripheral.getNames()) do
+  if peripheral.getType(name) == "ExtremeReactors_Reactor" then
+    table.insert(reactors, peripheral.wrap(name))
+  end
+end
+
 if #reactors == 0 then
   error("No reactors found! Connect reactors via Computer Ports.")
 end
